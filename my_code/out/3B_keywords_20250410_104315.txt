@@ -1,0 +1,61 @@
+Okay, here's a breakdown of the resume, extracting keywords organized by topic. This is designed to help you quickly assess the candidate's skills and experience.
+
+**I. Core Data Science Skills**
+
+*   **Machine Learning:** Linear Regression, Ridge & Lasso Regression, Logistic Regression, Naive Bayes, K Nearest Neighbors, Support Vector Machine, Decision Tree, Random Forest, Gradient Descent, Ada-Boost, Gradient Boosting, XGBoost, K-Means Clustering, Reinforcement Learning, PCA, Model examination, Model optimization.
+*   **Data Analysis:** Statistical Data Analysis, Data Visualization, Data Summarization, Data Management, Data Extraction, Accuracy Analysis, Data preprocessing, segmentation, annotation.
+*   **Statistical Foundations:** Probability, Statistics, Bayesian Methods, Maths & Statistics
+*   **Algorithm Development:** Algorithm Design, Template Matching, Text Matching, SIFT Algorithm
+
+**II. Programming & Tools**
+
+*   **Languages:** Python
+*   **Python Libraries:** NumPy, Pandas, SciPy, Scikit-learn, Seaborn, Matplotlib, DateTime, Regular Expression (RegEx)
+*   **Deep Learning Frameworks:** TensorFlow, Keras, PyTorch
+*   **Cloud Platforms:** AWS, GCP, Azure
+*   **Databases:** SQLite, MongoDB, SQL Databases, Relational Databases, Google Sheets.
+*   **Web Stack:** Flask (API)
+*   **Data Visualization Tools:** Power BI, Tableau
+*   **Version Control:** Git, GitHub
+*   **Operating Systems:** Linux, Windows
+*   **OCR:** Keras OCR, OCR
+
+**III. Generative AI and NLP**
+
+*   **Generative AI:** Generative AI, Generative AI Models, Large Language Models (LLM), Prompt Engineering, Open AI
+*   **NLP:** Natural Language Processing (NLP), NLTK, Term Frequency-Inverse Document Frequency (TF-IDF), Word2Vec, Bag of Words, Neural Networks, Forward and Backward Propagation, Optimization Function, Activation Function, Initializers, Loss & Cost Function, CNN.
+
+**IV. Domain Expertise (Industry Experience)**
+
+*   Commercial Domain
+*   Automotive Domain
+*   Healthcare Domain
+*   Insurance Domain
+*   Finance Domain
+
+**V. Projects & Applications**
+
+*   Image Classification
+*   Text Extraction
+*   Image Enhancement
+*   Image Analysis
+*   Time Series Analysis
+*   Document Classification
+*   Risk Assessment
+*   Price Forecasting
+
+**VI. Soft Skills & Experience**
+
+*   Communication Skills (written & verbal)
+*   Interpersonal Skills
+*   Client Interaction
+*   Team Handling (Team Size 4)
+*   Problem Solving
+*   Object-Oriented Programming (OOP)
+
+**VII. Experience**
+
+*   Data Scientist
+*   Software Developer (ML Engg.)
+
+This structured breakdown should provide a quick and comprehensive overview of the candidate's qualifications. Good luck with your hiring!

@@ -1,0 +1,95 @@
+Okay, here's a breakdown of the keywords extracted from the job description, organized by topic:
+
+**1. Core Skills & Technologies (AI/ML):**
+
+*   Machine Learning (ML)
+*   Deep Learning (DL)
+*   Predictive Analytics
+*   Classification
+*   Regression
+*   Clustering
+*   Time Series Forecasting
+    *   ARIMA
+    *   LSTMs (Long Short-Term Memory)
+    *   Prophet
+*   Computer Vision
+    *   Object Detection
+    *   Image Classification
+    *   Scene Understanding
+    *   OpenCV
+    *   YOLO
+    *   Faster R-CNN
+    *   Vision Transformers
+*   Natural Language Processing (NLP)
+    *   Text Analytics
+    *   OCR (Optical Character Recognition)
+    *   Document Intelligence
+    *   Transformer Models
+    *   BERT
+
+**2. Programming & Software Development:**
+
+*   Python
+*   SQL
+*   NoSQL
+*   FastAPI
+*   Flask
+*   Django
+*   RESTful APIs
+*   OOP (Object-Oriented Programming)
+*   Design Patterns
+*   Containerization (Docker, Kubernetes)
+*   Software Development Best Practices
+
+**3. Cloud Platforms & Deployment:**
+
+*   Azure
+*   AWS (Amazon Web Services)
+*   GCP (Google Cloud Platform)
+*   Cloud-Based Model Deployment
+*   Scalability
+*   Security
+*   Cost Optimization
+
+**4. MLOps & Model Management:**
+
+*   MLOps
+*   Model Lifecycle Management
+*   Model Versioning
+*   Model Monitoring
+*   Model Retraining
+*   MLflow
+*   Kubeflow
+*   SageMaker
+
+**5. Data Handling:**
+
+*   Structured Data
+*   Unstructured Data
+*   Feature Engineering
+*   Data Transformations
+*   MySQL
+*   PostgreSQL
+*   MongoDB
+
+**6. General Skills & Requirements:**
+
+*   Problem-Solving Skills
+*   Communication Skills
+*   Collaboration Skills
+*   Cross-Functional Teams
+*   AI/ML Research
+*   AI/ML Industry Trends
+*   Performance Optimization
+
+**7. Experience & Education:**
+
+*   2-5 Years Experience
+*   Bachelor's Degree (Computer Science, Engineering, Mathematics, or related field)
+*   Master's Degree (Computer Science, Engineering, Mathematics, or related field)
+
+**8. Specific Libraries/Frameworks:**
+
+*   TensorFlow
+*   PyTorch
+*   Scikit-learn
