@@ -1,0 +1,118 @@
+<div class="markdown prose dark:prose-invert w-full break-words light"><p data-start="0" data-end="192">Certainly! Below are some <strong data-start="26" data-end="55">interview-style questions</strong> categorized by concept for <strong data-start="83" data-end="112">K-Nearest Neighbors (KNN)</strong> and <strong data-start="117" data-end="139">K-Means Clustering</strong>, along with brief notes on what they're testing for.</p>
+<hr data-start="194" data-end="197">
+<h2 data-start="199" data-end="230">📌 K-Nearest Neighbors (KNN)</h2>
+<h3 data-start="232" data-end="263">🧠 Conceptual Understanding</h3>
+<ol data-start="264" data-end="677">
+<li data-start="264" data-end="304">
+<p data-start="267" data-end="304"><strong data-start="267" data-end="304">What is the intuition behind KNN?</strong></p>
+</li>
+<li data-start="305" data-end="365">
+<p data-start="308" data-end="365"><strong data-start="308" data-end="365">Is KNN a parametric or non-parametric algorithm? Why?</strong></p>
+</li>
+<li data-start="366" data-end="436">
+<p data-start="369" data-end="436"><strong data-start="369" data-end="436">How does the choice of <code data-start="394" data-end="397">k</code> affect the bias and variance in KNN?</strong></p>
+</li>
+<li data-start="437" data-end="517">
+<p data-start="440" data-end="517"><strong data-start="440" data-end="517">How would you handle ties when multiple neighbors have the same distance?</strong></p>
+</li>
+<li data-start="518" data-end="628">
+<p data-start="521" data-end="628"><strong data-start="521" data-end="628">What distance metrics can you use in KNN? When would you use cosine similarity over Euclidean distance?</strong></p>
+</li>
+<li data-start="629" data-end="677">
+<p data-start="632" data-end="677"><strong data-start="632" data-end="677">Why is feature scaling important for KNN?</strong></p>
+</li>
+</ol>
+<h3 data-start="679" data-end="714">🔧 Implementation &amp; Performance</h3>
+<ol start="7" data-start="715" data-end="1055">
+<li data-start="715" data-end="772">
+<p data-start="718" data-end="772"><strong data-start="718" data-end="772">What is the time complexity of KNN for prediction?</strong></p>
+</li>
+<li data-start="773" data-end="888">
+<p data-start="776" data-end="824"><strong data-start="776" data-end="824">How can you optimize KNN for large datasets?</strong></p>
+<ul data-start="828" data-end="888">
+<li data-start="828" data-end="888">
+<p data-start="830" data-end="888">(e.g., KD-Trees, Ball Trees, Approximate Nearest Neighbor)</p>
+</li>
+</ul>
+</li>
+<li data-start="889" data-end="983">
+<p data-start="892" data-end="983"><strong data-start="892" data-end="983">What techniques can be used to improve the performance of KNN on high-dimensional data?</strong></p>
+</li>
+<li data-start="984" data-end="1055">
+<p data-start="988" data-end="1055"><strong data-start="988" data-end="1055">How would you deal with imbalanced classes in a KNN classifier?</strong></p>
+</li>
+</ol>
+<hr data-start="1057" data-end="1060">
+<h2 data-start="1062" data-end="1086">📌 K-Means Clustering</h2>
+<h3 data-start="1088" data-end="1119">🧠 Conceptual Understanding</h3>
+<ol data-start="1120" data-end="1599">
+<li data-start="1120" data-end="1163">
+<p data-start="1123" data-end="1163"><strong data-start="1123" data-end="1163">How does the K-Means algorithm work?</strong></p>
+</li>
+<li data-start="1164" data-end="1213">
+<p data-start="1167" data-end="1213"><strong data-start="1167" data-end="1213">What is the objective function in K-Means?</strong></p>
+</li>
+<li data-start="1214" data-end="1338">
+<p data-start="1217" data-end="1285"><strong data-start="1217" data-end="1285">How do you choose the optimal number of clusters (k) in K-Means?</strong></p>
+<ul data-start="1289" data-end="1338">
+<li data-start="1289" data-end="1338">
+<p data-start="1291" data-end="1338">(Elbow method, Silhouette score, Gap statistic)</p>
+</li>
+</ul>
+</li>
+<li data-start="1339" data-end="1467">
+<p data-start="1342" data-end="1419"><strong data-start="1342" data-end="1419">Is K-Means sensitive to the initial centroids? How can you overcome this?</strong></p>
+<ul data-start="1423" data-end="1467">
+<li data-start="1423" data-end="1467">
+<p data-start="1425" data-end="1467">(Answer: Yes; use KMeans++ initialization)</p>
+</li>
+</ul>
+</li>
+<li data-start="1468" data-end="1550">
+<p data-start="1471" data-end="1550"><strong data-start="1471" data-end="1550">Why does K-Means struggle with non-spherical clusters or varying densities?</strong></p>
+</li>
+<li data-start="1551" data-end="1599">
+<p data-start="1554" data-end="1599"><strong data-start="1554" data-end="1599">Is K-Means deterministic? Why or why not?</strong></p>
+</li>
+</ol>
+<h3 data-start="1601" data-end="1636">🔧 Implementation &amp; Performance</h3>
+<ol start="7" data-start="1637" data-end="1992">
+<li data-start="1637" data-end="1681">
+<p data-start="1640" data-end="1681"><strong data-start="1640" data-end="1681">What are some limitations of K-Means?</strong></p>
+</li>
+<li data-start="1682" data-end="1780">
+<p data-start="1685" data-end="1780"><strong data-start="1685" data-end="1780">How would you handle categorical data in clustering problems? Can you use K-Means directly?</strong></p>
+</li>
+<li data-start="1781" data-end="1935">
+<p data-start="1784" data-end="1875"><strong data-start="1784" data-end="1875">What are some alternatives to K-Means when it fails (e.g., with non-globular clusters)?</strong></p>
+<ul data-start="1879" data-end="1935">
+<li data-start="1879" data-end="1935">
+<p data-start="1881" data-end="1935">(DBSCAN, Gaussian Mixture Models, Spectral Clustering)</p>
+</li>
+</ul>
+</li>
+<li data-start="1936" data-end="1992">
+<p data-start="1940" data-end="1992"><strong data-start="1940" data-end="1992">What is the computational complexity of K-Means?</strong></p>
+</li>
+</ol>
+<hr data-start="1994" data-end="1997">
+<h2 data-start="1999" data-end="2039">🎯 Bonus: Application-Based Questions</h2>
+<ul data-start="2041" data-end="2412">
+<li data-start="2041" data-end="2097">
+<p data-start="2043" data-end="2097"><strong data-start="2043" data-end="2097">How would you use KNN for a recommendation system?</strong></p>
+</li>
+<li data-start="2098" data-end="2173">
+<p data-start="2100" data-end="2173"><strong data-start="2100" data-end="2173">Describe a real-world problem where K-Means clustering can be useful.</strong></p>
+</li>
+<li data-start="2174" data-end="2269">
+<p data-start="2176" data-end="2269"><strong data-start="2176" data-end="2269">You have a streaming dataset. Can you use KNN or K-Means directly? What would you modify?</strong></p>
+</li>
+<li data-start="2270" data-end="2318">
+<p data-start="2272" data-end="2318"><strong data-start="2272" data-end="2318">Can KNN be used for regression tasks? How?</strong></p>
+</li>
+<li data-start="2319" data-end="2412">
+<p data-start="2321" data-end="2412"><strong data-start="2321" data-end="2412">How would you evaluate the quality of clustering if you don't have ground-truth labels?</strong></p>
+</li>
+</ul>
+<hr data-start="2414" data-end="2417">
+<p data-start="2419" data-end="2514" data-is-last-node="" data-is-only-node="">Would you like sample answers for any of these, or a multiple-choice quiz version for practice?</p></div>

@@ -1,0 +1,346 @@
+<h2>What’s the difference between a CNN and an RNN?</h2>
+
+<div class="markdown prose dark:prose-invert w-full break-words light"><p data-start="0" data-end="214">Convolutional Neural Networks (CNNs) and Recurrent Neural Networks (RNNs) are two broad families of deep learning architectures, each tailored to different data modalities and tasks. Here are their key differences:</p>
+<hr data-start="216" data-end="219">
+<h2 data-start="221" data-end="264">1. Data Structure &amp; Typical Applications</h2>
+<ul data-start="266" data-end="889">
+<li data-start="266" data-end="589">
+<p data-start="268" data-end="278"><strong data-start="268" data-end="276">CNNs</strong></p>
+<ul data-start="281" data-end="589">
+<li data-start="281" data-end="367">
+<p data-start="283" data-end="367"><strong data-start="283" data-end="298">Input type:</strong> Grid-structured data (e.g. 2D images, 3D videos, even 1D signals).</p>
+</li>
+<li data-start="370" data-end="589">
+<p data-start="372" data-end="388"><strong data-start="372" data-end="386">Use cases:</strong></p>
+<ul data-start="393" data-end="589">
+<li data-start="393" data-end="443">
+<p data-start="395" data-end="443">Image classification (e.g. CIFAR-10, ImageNet)</p>
+</li>
+<li data-start="448" data-end="485">
+<p data-start="450" data-end="485">Object detection and segmentation</p>
+</li>
+<li data-start="490" data-end="531">
+<p data-start="492" data-end="531">Video analysis (with 3D convolutions)</p>
+</li>
+<li data-start="536" data-end="589">
+<p data-start="538" data-end="589">1D CNNs for time-series / audio signal processing</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li data-start="591" data-end="889">
+<p data-start="593" data-end="603"><strong data-start="593" data-end="601">RNNs</strong></p>
+<ul data-start="606" data-end="889">
+<li data-start="606" data-end="675">
+<p data-start="608" data-end="675"><strong data-start="608" data-end="623">Input type:</strong> Sequential data (e.g. text, speech, time series).</p>
+</li>
+<li data-start="678" data-end="889">
+<p data-start="680" data-end="696"><strong data-start="680" data-end="694">Use cases:</strong></p>
+<ul data-start="701" data-end="889">
+<li data-start="701" data-end="746">
+<p data-start="703" data-end="746">Language modeling and machine translation</p>
+</li>
+<li data-start="751" data-end="773">
+<p data-start="753" data-end="773">Speech recognition</p>
+</li>
+<li data-start="778" data-end="805">
+<p data-start="780" data-end="805">Time-series forecasting</p>
+</li>
+<li data-start="810" data-end="889">
+<p data-start="812" data-end="889">Any task where order/time matters (e.g. sentiment analysis, sequence tagging)</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr data-start="891" data-end="894">
+<h2 data-start="896" data-end="931">2. Architectural Building Blocks</h2>
+<div class="_tableContainer_16hzy_1"><div tabindex="-1" class="_tableWrapper_16hzy_14 group flex w-fit flex-col-reverse"><table data-start="933" data-end="1760" class="w-fit min-w-(--thread-content-width)"><thead data-start="933" data-end="1070"><tr data-start="933" data-end="1070"><th data-start="933" data-end="960" data-col-size="sm">Aspect</th><th data-start="960" data-end="1010" data-col-size="md">CNN</th><th data-start="1010" data-end="1070" data-col-size="md">RNN</th></tr></thead><tbody data-start="1209" data-end="1760"><tr data-start="1209" data-end="1346"><td data-start="1209" data-end="1236" data-col-size="sm"><strong data-start="1211" data-end="1229">Core operation</strong></td><td data-col-size="md" data-start="1236" data-end="1286">Convolution: sliding “kernel” filters over input</td><td data-col-size="md" data-start="1286" data-end="1346">Recurrent cell: processes one time-step at a time</td></tr><tr data-start="1347" data-end="1484"><td data-start="1347" data-end="1374" data-col-size="sm"><strong data-start="1349" data-end="1370">Parameter sharing</strong></td><td data-start="1374" data-end="1424" data-col-size="md">Filters shared spatially across width/height</td><td data-start="1424" data-end="1484" data-col-size="md">Weights shared temporally across time steps</td></tr><tr data-start="1485" data-end="1622"><td data-start="1485" data-end="1512" data-col-size="sm"><strong data-start="1487" data-end="1500">Data flow</strong></td><td data-start="1512" data-end="1562" data-col-size="md"><strong data-start="1514" data-end="1530">Feed-forward</strong>: fixed hierarchy of layers</td><td data-start="1562" data-end="1622" data-col-size="md"><strong data-start="1564" data-end="1577">Recurrent</strong>: hidden state propagates through time</td></tr><tr data-start="1623" data-end="1760"><td data-start="1623" data-end="1650" data-col-size="sm"><strong data-start="1625" data-end="1635">Memory</strong></td><td data-start="1650" data-end="1700" data-col-size="md">Implicit: receptive field grows layer by layer</td><td data-col-size="md" data-start="1700" data-end="1760">Explicit: hidden state “remembers” past inputs</td></tr></tbody></table><div class="sticky end-(--thread-content-margin) h-0 self-end select-none"><div class="absolute end-0 flex items-end" style="height: 33.2188px;"><span class="" data-state="closed"><button class="bg-token-bg-primary hover:bg-token-bg-tertiary text-token-text-secondary my-1 rounded-sm p-1 transition-opacity group-[:not(:hover):not(:focus-within)]:pointer-events-none group-[:not(:hover):not(:focus-within)]:opacity-0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-md-heavy"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg></button></span></div></div></div></div>
+<hr data-start="1762" data-end="1765">
+<h2 data-start="1767" data-end="1804">3. Handling Context &amp; Dependencies</h2>
+<ul data-start="1806" data-end="2294">
+<li data-start="1806" data-end="2036">
+<p data-start="1808" data-end="1818"><strong data-start="1808" data-end="1816">CNNs</strong></p>
+<ul data-start="1821" data-end="2036">
+<li data-start="1821" data-end="1892">
+<p data-start="1823" data-end="1892">Capture <strong data-start="1831" data-end="1840">local</strong> patterns via small kernels (e.g. edge detectors).</p>
+</li>
+<li data-start="1895" data-end="1964">
+<p data-start="1897" data-end="1964">Deeper layers integrate broader context (larger receptive field).</p>
+</li>
+<li data-start="1967" data-end="2036">
+<p data-start="1969" data-end="2036">Spatial invariance: same feature detector applies across the image.</p>
+</li>
+</ul>
+</li>
+<li data-start="2038" data-end="2294">
+<p data-start="2040" data-end="2050"><strong data-start="2040" data-end="2048">RNNs</strong></p>
+<ul data-start="2053" data-end="2294">
+<li data-start="2053" data-end="2119">
+<p data-start="2055" data-end="2119">Designed to model <strong data-start="2073" data-end="2085">temporal</strong> or <strong data-start="2089" data-end="2103">sequential</strong> dependencies.</p>
+</li>
+<li data-start="2122" data-end="2195">
+<p data-start="2124" data-end="2195">Hidden state at time <em data-start="2145" data-end="2148">t</em> carries information from all previous steps.</p>
+</li>
+<li data-start="2198" data-end="2294">
+<p data-start="2200" data-end="2294">Variants (LSTM, GRU) mitigate vanishing/exploding gradients and learn long-range dependencies.</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr data-start="2296" data-end="2299">
+<h2 data-start="2301" data-end="2331">4. Parallelism &amp; Efficiency</h2>
+<ul data-start="2333" data-end="2776">
+<li data-start="2333" data-end="2517">
+<p data-start="2335" data-end="2345"><strong data-start="2335" data-end="2343">CNNs</strong></p>
+<ul data-start="2348" data-end="2517">
+<li data-start="2348" data-end="2450">
+<p data-start="2350" data-end="2450">Highly parallelizable: convolutions over different regions can be computed simultaneously on GPUs.</p>
+</li>
+<li data-start="2453" data-end="2517">
+<p data-start="2455" data-end="2517">Efficient at processing high-dimensional data (images/videos).</p>
+</li>
+</ul>
+</li>
+<li data-start="2519" data-end="2776">
+<p data-start="2521" data-end="2531"><strong data-start="2521" data-end="2529">RNNs</strong></p>
+<ul data-start="2534" data-end="2776">
+<li data-start="2534" data-end="2635">
+<p data-start="2536" data-end="2635">Inherently sequential: each time step depends on the previous hidden state, limiting parallelism.</p>
+</li>
+<li data-start="2638" data-end="2776">
+<p data-start="2640" data-end="2776">Training can be slower on long sequences (though techniques like truncated backpropagation, transformer-style parallelization are used).</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr data-start="2778" data-end="2781">
+<h2 data-start="2783" data-end="2810">5. Variants &amp; Extensions</h2>
+<ul data-start="2812" data-end="3148">
+<li data-start="2812" data-end="2975">
+<p data-start="2814" data-end="2834"><strong data-start="2814" data-end="2832">CNN Extensions</strong></p>
+<ul data-start="2837" data-end="2975">
+<li data-start="2837" data-end="2901">
+<p data-start="2839" data-end="2901"><strong data-start="2839" data-end="2849">ResNet</strong>, <strong data-start="2851" data-end="2863">DenseNet</strong>, <strong data-start="2865" data-end="2878">Inception</strong>, <strong data-start="2880" data-end="2893">MobileNet</strong>, etc.</p>
+</li>
+<li data-start="2904" data-end="2975">
+<p data-start="2906" data-end="2975">Architectures for efficiency (e.g. depthwise separable convolutions).</p>
+</li>
+</ul>
+</li>
+<li data-start="2977" data-end="3148">
+<p data-start="2979" data-end="2999"><strong data-start="2979" data-end="2997">RNN Extensions</strong></p>
+<ul data-start="3002" data-end="3148">
+<li data-start="3002" data-end="3039">
+<p data-start="3004" data-end="3039"><strong data-start="3004" data-end="3012">LSTM</strong> (Long Short-Term Memory)</p>
+</li>
+<li data-start="3042" data-end="3076">
+<p data-start="3044" data-end="3076"><strong data-start="3044" data-end="3051">GRU</strong> (Gated Recurrent Unit)</p>
+</li>
+<li data-start="3079" data-end="3148">
+<p data-start="3081" data-end="3148"><strong data-start="3081" data-end="3103">Bidirectional RNNs</strong> (process sequence both forward and backward)</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr data-start="3150" data-end="3153">
+<h2 data-start="3155" data-end="3182">6. When to Choose Which?</h2>
+<ul data-start="3184" data-end="3487">
+<li data-start="3184" data-end="3334">
+<p data-start="3186" data-end="3205"><strong data-start="3186" data-end="3203">Use a CNN if…</strong></p>
+<ul data-start="3208" data-end="3334">
+<li data-start="3208" data-end="3264">
+<p data-start="3210" data-end="3264">Your data is spatial (images, videos, sensor grids).</p>
+</li>
+<li data-start="3267" data-end="3334">
+<p data-start="3269" data-end="3334">You need to detect local patterns irrespective of their position.</p>
+</li>
+</ul>
+</li>
+<li data-start="3336" data-end="3487">
+<p data-start="3338" data-end="3358"><strong data-start="3338" data-end="3356">Use an RNN if…</strong></p>
+<ul data-start="3361" data-end="3487">
+<li data-start="3361" data-end="3432">
+<p data-start="3363" data-end="3432">Your data is sequential/time-dependent (text, audio, stock prices).</p>
+</li>
+<li data-start="3435" data-end="3487">
+<p data-start="3437" data-end="3487">Capturing order and temporal dynamics is critical.</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr data-start="3489" data-end="3492">
+<h3 data-start="3494" data-end="3519">Hybrid &amp; Alternatives</h3>
+<ul data-start="3521" data-end="3794">
+<li data-start="3521" data-end="3614">
+<p data-start="3523" data-end="3538"><strong data-start="3523" data-end="3536">CNN + RNN</strong></p>
+<ul data-start="3541" data-end="3614">
+<li data-start="3541" data-end="3614">
+<p data-start="3543" data-end="3614">E.g. video captioning: a CNN encodes frames; an RNN decodes captions.</p>
+</li>
+</ul>
+</li>
+<li data-start="3615" data-end="3794">
+<p data-start="3617" data-end="3635"><strong data-start="3617" data-end="3633">Transformers</strong></p>
+<ul data-start="3638" data-end="3794">
+<li data-start="3638" data-end="3794">
+<p data-start="3640" data-end="3794">Attention-based models that handle sequences (and even images) with parallelizable architectures, often outperforming vanilla RNNs and CNNs on many tasks.</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr data-start="3796" data-end="3799">
+<h3 data-start="3801" data-end="3812">Summary</h3>
+<div class="_tableContainer_16hzy_1"><div tabindex="-1" class="_tableWrapper_16hzy_14 group flex w-fit flex-col-reverse"><table data-start="3814" data-end="4640" class="w-fit min-w-(--thread-content-width)"><thead data-start="3814" data-end="3931"><tr data-start="3814" data-end="3931"><th data-start="3814" data-end="3840" data-col-size="sm">Feature</th><th data-start="3840" data-end="3883" data-col-size="sm">CNN</th><th data-start="3883" data-end="3931" data-col-size="sm">RNN</th></tr></thead><tbody data-start="4050" data-end="4640"><tr data-start="4050" data-end="4167"><td data-start="4050" data-end="4076" data-col-size="sm">Data type</td><td data-start="4076" data-end="4119" data-col-size="sm">Spatial (images, grids)</td><td data-start="4119" data-end="4167" data-col-size="sm">Sequential (text, time series)</td></tr><tr data-start="4168" data-end="4285"><td data-start="4168" data-end="4194" data-col-size="sm">Core mechanism</td><td data-start="4194" data-end="4237" data-col-size="sm">Convolution + pooling</td><td data-start="4237" data-end="4285" data-col-size="sm">Recurrent processing + hidden state</td></tr><tr data-start="4286" data-end="4403"><td data-start="4286" data-end="4312" data-col-size="sm">Memory of context</td><td data-start="4312" data-end="4355" data-col-size="sm">Grows via depth (receptive field)</td><td data-start="4355" data-end="4403" data-col-size="sm">Explicit through hidden state</td></tr><tr data-start="4404" data-end="4522"><td data-start="4404" data-end="4430" data-col-size="sm">Parallelism</td><td data-start="4430" data-end="4473" data-col-size="sm">High</td><td data-start="4473" data-end="4522" data-col-size="sm">Low</td></tr><tr data-start="4523" data-end="4640"><td data-start="4523" data-end="4549" data-col-size="sm">Best for</td><td data-start="4549" data-end="4592" data-col-size="sm">Pattern/feature detection in space</td><td data-start="4592" data-end="4640" data-col-size="sm">Modeling temporal/order dependencies</td></tr></tbody></table><div class="sticky end-(--thread-content-margin) h-0 self-end select-none"><div class="absolute end-0 flex items-end" style="height: 33.2188px;"><span class="" data-state="closed"><button class="bg-token-bg-primary hover:bg-token-bg-tertiary text-token-text-secondary my-1 rounded-sm p-1 transition-opacity group-[:not(:hover):not(:focus-within)]:pointer-events-none group-[:not(:hover):not(:focus-within)]:opacity-0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-md-heavy"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg></button></span></div></div></div></div>
+<p data-start="4642" data-end="4804" data-is-last-node="" data-is-only-node="">By matching the network type to the structure of your data and the dependencies you need to capture, you’ll get the best performance and efficiency for your task.</p></div>
+
+<hr>
+
+<h2>When would you use transfer learning?</h2>
+
+<div class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]"><div class="markdown prose dark:prose-invert w-full break-words light"><p data-start="0" data-end="212">Transfer learning is the practice of taking a model (or representations) trained on one task or domain and adapting it to a new, related task or domain. You’d reach for transfer learning in situations like these:</p>
+<ol data-start="214" data-end="2505">
+<li data-start="214" data-end="639">
+<p data-start="217" data-end="243"><strong data-start="217" data-end="241">Limited Labeled Data</strong></p>
+<ul data-start="247" data-end="639">
+<li data-start="247" data-end="376">
+<p data-start="249" data-end="376"><strong data-start="249" data-end="261">Problem:</strong> Your target task has only a small annotated dataset (e.g. a few hundred images or a few thousand text examples).</p>
+</li>
+<li data-start="380" data-end="639">
+<p data-start="382" data-end="639"><strong data-start="382" data-end="395">Solution:</strong> Start from a model pretrained on a large dataset (ImageNet for vision, Wikipedia/books for language) and fine-tune it on your smaller dataset. This lets you leverage the “knowledge” captured during pretraining instead of learning from scratch.</p>
+</li>
+</ul>
+</li>
+<li data-start="641" data-end="982">
+<p data-start="644" data-end="698"><strong data-start="644" data-end="696">High Computational Cost of Training From Scratch</strong></p>
+<ul data-start="702" data-end="982">
+<li data-start="702" data-end="849">
+<p data-start="704" data-end="849"><strong data-start="704" data-end="716">Problem:</strong> Training a deep network from random initialization on a massive dataset would require weeks of GPU time (and lots of electricity).</p>
+</li>
+<li data-start="853" data-end="982">
+<p data-start="855" data-end="982"><strong data-start="855" data-end="868">Solution:</strong> Use an off-the-shelf pretrained model. Fine-tuning usually converges in hours or days, saving compute and energy.</p>
+</li>
+</ul>
+</li>
+<li data-start="984" data-end="1392">
+<p data-start="987" data-end="1010"><strong data-start="987" data-end="1008">Domain Adaptation</strong></p>
+<ul data-start="1014" data-end="1392">
+<li data-start="1014" data-end="1155">
+<p data-start="1016" data-end="1155"><strong data-start="1016" data-end="1028">Problem:</strong> Your target data distribution differs somewhat from the standard benchmarks. For example, medical X-rays vs. natural images.</p>
+</li>
+<li data-start="1159" data-end="1392">
+<p data-start="1161" data-end="1392"><strong data-start="1161" data-end="1174">Solution:</strong> Pretrain on the large, generic dataset, then fine-tune (or even just adapt feature-extraction layers) on your domain-specific data so the model learns specialized cues without forgetting basic visual/textual patterns.</p>
+</li>
+</ul>
+</li>
+<li data-start="1394" data-end="1835">
+<p data-start="1397" data-end="1434"><strong data-start="1397" data-end="1432">Cross-Modal or Cross-Task Reuse</strong></p>
+<ul data-start="1438" data-end="1835">
+<li data-start="1438" data-end="1615">
+<p data-start="1440" data-end="1615"><strong data-start="1440" data-end="1452">Problem:</strong> You need to build a related but not identical model—say, moving from image classification to object detection, or from language modelling to question answering.</p>
+</li>
+<li data-start="1619" data-end="1835">
+<p data-start="1621" data-end="1835"><strong data-start="1621" data-end="1634">Solution:</strong> Transfer the early (feature-extracting) layers of your network and retrain the later, task-specific layers. This jump-starts learning on the new task while retaining the broad visual/textual features.</p>
+</li>
+</ul>
+</li>
+<li data-start="1837" data-end="2217">
+<p data-start="1840" data-end="1887"><strong data-start="1840" data-end="1885">Speeding Up Prototyping &amp; Experimentation</strong></p>
+<ul data-start="1891" data-end="2217">
+<li data-start="1891" data-end="2022">
+<p data-start="1893" data-end="2022"><strong data-start="1893" data-end="1906">Scenario:</strong> You want to quickly benchmark different architectures on your problem without investing heavily in training time.</p>
+</li>
+<li data-start="2026" data-end="2217">
+<p data-start="2028" data-end="2217"><strong data-start="2028" data-end="2041">Approach:</strong> Load multiple pretrained checkpoints (ResNet, EfficientNet, ViT, BERT, GPT, etc.), fine-tune them, and compare — the pretrained weights give you a strong baseline immediately.</p>
+</li>
+</ul>
+</li>
+<li data-start="2219" data-end="2505">
+<p data-start="2222" data-end="2279"><strong data-start="2222" data-end="2277">When Pretraining Tasks Are Hard to Label or Compute</strong></p>
+<ul data-start="2283" data-end="2505">
+<li data-start="2283" data-end="2505">
+<p data-start="2285" data-end="2505"><strong data-start="2285" data-end="2297">Example:</strong> Pretraining a language model on trillions of web tokens or a vision model on billions of images. You can’t realistically replicate that scale in your project, but you can use those public pretrained weights.</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr data-start="2507" data-end="2510">
+<h2 data-start="2512" data-end="2533">Practical Examples</h2>
+<ul data-start="2535" data-end="3392">
+<li data-start="2535" data-end="2796">
+<p data-start="2537" data-end="2558"><strong data-start="2537" data-end="2556">Computer Vision</strong></p>
+<ul data-start="2561" data-end="2796">
+<li data-start="2561" data-end="2673">
+<p data-start="2563" data-end="2673">Fine-tune a ResNet50 (pretrained on ImageNet) to classify pathology slides with only 1,000 labeled examples.</p>
+</li>
+<li data-start="2676" data-end="2796">
+<p data-start="2678" data-end="2796">Use a COCO-trained Faster R-CNN backbone for custom object-detection (e.g. detecting defects on a manufacturing line).</p>
+</li>
+</ul>
+</li>
+<li data-start="2798" data-end="3102">
+<p data-start="2800" data-end="2833"><strong data-start="2800" data-end="2831">Natural Language Processing</strong></p>
+<ul data-start="2836" data-end="3102">
+<li data-start="2836" data-end="2985">
+<p data-start="2838" data-end="2985">Start from BERT (pretrained with masked-language modeling on vast text corpora) and fine-tune on your sentiment-analysis dataset of 5,000 tweets.</p>
+</li>
+<li data-start="2988" data-end="3102">
+<p data-start="2990" data-end="3102">Use a GPT-style model pretrained on web data and adapt it to generate customer-support responses in your domain.</p>
+</li>
+</ul>
+</li>
+<li data-start="3104" data-end="3250">
+<p data-start="3106" data-end="3128"><strong data-start="3106" data-end="3126">Speech and Audio</strong></p>
+<ul data-start="3131" data-end="3250">
+<li data-start="3131" data-end="3250">
+<p data-start="3133" data-end="3250">Leverage Wav2Vec 2.0 (self-supervised audio pretraining) to build a speech-to-text model for a low-resource language.</p>
+</li>
+</ul>
+</li>
+<li data-start="3252" data-end="3392">
+<p data-start="3254" data-end="3282"><strong data-start="3254" data-end="3280">Reinforcement Learning</strong></p>
+<ul data-start="3285" data-end="3392">
+<li data-start="3285" data-end="3392">
+<p data-start="3287" data-end="3392">Transfer learned policies or feature encoders from simulation environments to real-world robotic control.</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr data-start="3394" data-end="3397">
+<h2 data-start="3399" data-end="3420">Key Considerations</h2>
+<ul data-start="3422" data-end="4112">
+<li data-start="3422" data-end="3563">
+<p data-start="3424" data-end="3563"><strong data-start="3424" data-end="3462">Similarity Between Source &amp; Target</strong><br data-start="3462" data-end="3465">
+The closer the pretraining domain/task is to your end goal, the more effective transfer will be.</p>
+</li>
+<li data-start="3565" data-end="3736">
+<p data-start="3567" data-end="3736"><strong data-start="3567" data-end="3607">Which Layers to Freeze vs. Fine-Tune</strong><br data-start="3607" data-end="3610">
+Early layers capture general features; you might freeze those and only fine-tune higher layers if you have very little data.</p>
+</li>
+<li data-start="3738" data-end="3952">
+<p data-start="3740" data-end="3952"><strong data-start="3740" data-end="3767">Catastrophic Forgetting</strong><br data-start="3767" data-end="3770">
+If you fine-tune too aggressively (high learning rate, updating too many layers), the model can “forget” useful pretrained patterns. Gradual unfreezing and low learning rates help.</p>
+</li>
+<li data-start="3954" data-end="4112">
+<p data-start="3956" data-end="4112"><strong data-start="3956" data-end="3987">License &amp; Usage Constraints</strong><br data-start="3987" data-end="3990">
+Ensure the pretrained weights you use are compatible with your project’s licensing (especially for commercial products).</p>
+</li>
+</ul>
+<hr data-start="4114" data-end="4117">
+<h3 data-start="4119" data-end="4158">When <em data-start="4128" data-end="4133">Not</em> to Use Transfer Learning</h3>
+<ul data-start="4160" data-end="4575">
+<li data-start="4160" data-end="4306">
+<p data-start="4162" data-end="4306"><strong data-start="4162" data-end="4188">Truly Novel Modalities</strong><br data-start="4188" data-end="4191">
+If your data are very different (e.g. point-cloud Lidar vs. 2D images) and no relevant pretrained models exist.</p>
+</li>
+<li data-start="4307" data-end="4575">
+<p data-start="4309" data-end="4575"><strong data-start="4309" data-end="4346">Abundant In-Domain Data &amp; Compute</strong><br data-start="4346" data-end="4349">
+If you have both a massive, high-quality dataset in your exact target domain <em data-start="4428" data-end="4433">and</em> the resources to train from scratch, custom pretraining might yield slightly better performance—though transfer still often speeds things up.</p>
+</li>
+</ul>
+<hr data-start="4577" data-end="4580">
+<p data-start="4582" data-end="4756" data-is-last-node="" data-is-only-node="">By evaluating your data volume, domain similarity, compute constraints, and project timeline, you’ll know exactly when transfer learning will give you the biggest head start.</p></div></div>
+
+

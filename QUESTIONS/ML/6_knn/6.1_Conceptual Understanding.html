@@ -1,0 +1,432 @@
+<h2>What is the intuition behind KNN?</h2>
+
+<div class="markdown prose dark:prose-invert w-full break-words light"><p data-start="0" data-end="186">At its core, K-Nearest Neighbors (KNN) is a <strong data-start="44" data-end="52">lazy</strong>, <strong data-start="54" data-end="72">instance-based</strong>, non-parametric** method whose prediction for a new point is simply a summary of its “nearest” training examples:</p>
+<ol data-start="188" data-end="1230">
+<li data-start="188" data-end="346">
+<p data-start="191" data-end="224"><strong data-start="191" data-end="222">No Training (Lazy Learning)</strong></p>
+<ul data-start="228" data-end="346">
+<li data-start="228" data-end="346">
+<p data-start="230" data-end="346">Unlike most algorithms, KNN does <em data-start="263" data-end="267">no</em> modeling or parameter fitting upfront. It simply stores the full training set.</p>
+</li>
+</ul>
+</li>
+<li data-start="348" data-end="542">
+<p data-start="351" data-end="378"><strong data-start="351" data-end="376">Distance = Similarity</strong></p>
+<ul data-start="382" data-end="542">
+<li data-start="382" data-end="542">
+<p data-start="384" data-end="542">To predict for a new sample, KNN measures its distance (e.g. Euclidean, Manhattan, cosine) to <em data-start="478" data-end="483">all</em> stored points. Closer neighbors are deemed more “similar.”</p>
+</li>
+</ul>
+</li>
+<li data-start="544" data-end="773">
+<p data-start="547" data-end="577"><strong data-start="547" data-end="575">Majority Vote or Average</strong></p>
+<ul data-start="581" data-end="773">
+<li data-start="581" data-end="680">
+<p data-start="583" data-end="680"><strong data-start="583" data-end="601">Classification</strong>: Look at the <em data-start="615" data-end="618">k</em> closest points’ labels; the class with the most votes wins.</p>
+</li>
+<li data-start="684" data-end="773">
+<p data-start="686" data-end="773"><strong data-start="686" data-end="700">Regression</strong>: Take the <em data-start="711" data-end="717">mean</em> (or weighted mean) of the <em data-start="744" data-end="747" data-is-only-node="">k</em> neighbors’ target values.</p>
+</li>
+</ul>
+</li>
+<li data-start="775" data-end="1016">
+<p data-start="778" data-end="809"><strong data-start="778" data-end="807">Local Decision Boundaries</strong></p>
+<ul data-start="813" data-end="1016">
+<li data-start="813" data-end="1016">
+<p data-start="815" data-end="1016">KNN implicitly defines a decision surface that’s shaped entirely by the local geometry of the data. In regions where class A points cluster, new points will be labeled A; where B clusters, labeled B.</p>
+</li>
+</ul>
+</li>
+<li data-start="1018" data-end="1230">
+<p data-start="1021" data-end="1056"><strong data-start="1021" data-end="1054">Bias–Variance Trade-off via k</strong></p>
+<ul data-start="1060" data-end="1230">
+<li data-start="1060" data-end="1135">
+<p data-start="1062" data-end="1135">Small <em data-start="1068" data-end="1071">k</em> → very flexible (low bias, high variance; can overfit noise).</p>
+</li>
+<li data-start="1139" data-end="1230">
+<p data-start="1141" data-end="1230">Large <em data-start="1147" data-end="1150">k</em> → smoother, more stable boundaries (higher bias, lower variance; may underfit).</p>
+</li>
+</ul>
+</li>
+</ol>
+<p data-start="1232" data-end="1466" data-is-last-node="" data-is-only-node=""><strong data-start="1232" data-end="1246">Intuition:</strong> “Tell me who your neighbors are, and I’ll tell you who you are.” A point’s identity is inferred by the identities of its nearest training neighbors, making KNN a straightforward—but often surprisingly powerful—approach.</p></div>
+
+<hr>
+
+<h2>Is KNN a parametric or non-parametric algorithm? Why?</h2>
+
+<div class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]"><div class="markdown prose dark:prose-invert w-full break-words light"><p data-start="0" data-end="40">KNN is a <strong data-start="9" data-end="27">non-parametric</strong> algorithm.</p>
+<h3 data-start="42" data-end="67">Why non-parametric?</h3>
+<ul data-start="68" data-end="539">
+<li data-start="68" data-end="186">
+<p data-start="70" data-end="186"><strong data-start="70" data-end="87">No Fixed Form</strong>: It makes <strong data-start="98" data-end="116">no assumptions</strong> about the underlying data distribution (e.g. linearity, normality).</p>
+</li>
+<li data-start="187" data-end="365">
+<p data-start="189" data-end="365"><strong data-start="189" data-end="213">No Global Parameters</strong>: There isn’t a small set of learned parameters (like coefficients in linear regression). Instead, it “learns” by <strong data-start="327" data-end="338">storing</strong> the entire training set.</p>
+</li>
+<li data-start="366" data-end="539">
+<p data-start="368" data-end="539"><strong data-start="368" data-end="399">Flexibility Grows with Data</strong>: Its complexity and decision boundary become richer as you add more training points—there’s no predefined model form limiting its capacity.</p>
+</li>
+</ul>
+<p data-start="541" data-end="832" data-is-last-node="" data-is-only-node="">In contrast, <strong data-start="554" data-end="568">parametric</strong> methods (e.g. linear/logistic regression) assume a specific functional form with a fixed number of parameters (weights), learned during training. KNN’s “model” is just the raw data plus a distance metric and the choice of <strong data-start="791" data-end="796">k</strong>, so it’s inherently non-parametric.</p></div></div>
+
+<hr>
+
+<h2>How does the choice of k affect the bias and variance in KNN?</h2>
+
+<div class="markdown prose dark:prose-invert w-full break-words light"><p data-start="0" data-end="171">In KNN, the hyperparameter <strong data-start="27" data-end="32">k</strong> (the number of neighbors) directly controls the model’s <strong data-start="89" data-end="103">complexity</strong>, and thus its position on the <strong data-start="134" data-end="161">bias–variance trade-off</strong> spectrum:</p>
+<hr data-start="173" data-end="176">
+<h3 data-start="178" data-end="208">🔍 Small k (e.g. k=1 or 2)</h3>
+<ul data-start="209" data-end="652">
+<li data-start="209" data-end="441">
+<p data-start="211" data-end="225"><strong data-start="211" data-end="223">Low Bias</strong></p>
+<ul data-start="228" data-end="441">
+<li data-start="228" data-end="386">
+<p data-start="230" data-end="386">Decision boundary is extremely flexible—each point is classified by its very closest neighbors, so you can carve out very irregular, fine-grained regions.</p>
+</li>
+<li data-start="389" data-end="441">
+<p data-start="391" data-end="441">Easily fits complex patterns in the training data.</p>
+</li>
+</ul>
+</li>
+<li data-start="442" data-end="652">
+<p data-start="444" data-end="463"><strong data-start="444" data-end="461">High Variance</strong></p>
+<ul data-start="466" data-end="652">
+<li data-start="466" data-end="576">
+<p data-start="468" data-end="576">Very sensitive to noise and outliers: a single mislabeled neighbor can flip a prediction in a tiny region.</p>
+</li>
+<li data-start="579" data-end="652">
+<p data-start="581" data-end="652">Performance can swing wildly if you change or perturb the training set.</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr data-start="654" data-end="657">
+<h3 data-start="659" data-end="697">🔍 Large k (e.g. k near n_samples)</h3>
+<ul data-start="698" data-end="1137">
+<li data-start="698" data-end="947">
+<p data-start="700" data-end="715"><strong data-start="700" data-end="713">High Bias</strong></p>
+<ul data-start="718" data-end="947">
+<li data-start="718" data-end="893">
+<p data-start="720" data-end="893">Decision boundary becomes smoother and more “averaged out.” In the extreme (k = all points), you predict the majority class for every query, regardless of local structure.</p>
+</li>
+<li data-start="896" data-end="947">
+<p data-start="898" data-end="947">May underfit, missing subtler class distinctions.</p>
+</li>
+</ul>
+</li>
+<li data-start="948" data-end="1137">
+<p data-start="950" data-end="968"><strong data-start="950" data-end="966">Low Variance</strong></p>
+<ul data-start="971" data-end="1137">
+<li data-start="971" data-end="1067">
+<p data-start="973" data-end="1067">Aggregating over many neighbors dampens the influence of any single noisy or atypical point.</p>
+</li>
+<li data-start="1070" data-end="1137">
+<p data-start="1072" data-end="1137">Predictions become more stable across different training samples.</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr data-start="1139" data-end="1142">
+<div class="_tableContainer_16hzy_1"><div tabindex="-1" class="_tableWrapper_16hzy_14 group flex w-fit flex-col-reverse"><table data-start="1144" data-end="1523" class="w-fit min-w-(--thread-content-width)"><thead data-start="1144" data-end="1219"><tr data-start="1144" data-end="1219"><th data-start="1144" data-end="1159" data-col-size="sm"><strong data-start="1146" data-end="1151">k</strong></th><th data-start="1159" data-end="1175" data-col-size="sm"><strong data-start="1161" data-end="1169">Bias</strong></th><th data-start="1175" data-end="1192" data-col-size="sm"><strong data-start="1177" data-end="1189">Variance</strong></th><th data-start="1192" data-end="1219" data-col-size="sm"><strong data-start="1194" data-end="1206">Tendency</strong></th></tr></thead><tbody data-start="1296" data-end="1523"><tr data-start="1296" data-end="1370"><td data-start="1296" data-end="1311" data-col-size="sm">Small (1–5)</td><td data-start="1311" data-end="1327" data-col-size="sm">Low</td><td data-start="1327" data-end="1344" data-col-size="sm">High</td><td data-start="1344" data-end="1370" data-col-size="sm">Overfit, noisy boundary</td></tr><tr data-start="1371" data-end="1446"><td data-start="1371" data-end="1386" data-col-size="sm">Medium (√n)</td><td data-start="1386" data-end="1402" data-col-size="sm">Moderate</td><td data-start="1402" data-end="1419" data-col-size="sm">Moderate</td><td data-start="1419" data-end="1446" data-col-size="sm">Balanced trade-off</td></tr><tr data-start="1447" data-end="1523"><td data-start="1447" data-end="1462" data-col-size="sm">Large (n–1)</td><td data-start="1462" data-end="1478" data-col-size="sm">High</td><td data-start="1478" data-end="1495" data-col-size="sm">Low</td><td data-start="1495" data-end="1523" data-col-size="sm">Underfit, smooth boundary</td></tr></tbody></table><div class="sticky end-(--thread-content-margin) h-0 self-end select-none"><div class="absolute end-0 flex items-end" style="height: 33.2188px;"><span class="" data-state="closed"><button class="bg-token-bg-primary hover:bg-token-bg-tertiary text-token-text-secondary my-1 rounded-sm p-1 transition-opacity group-[:not(:hover):not(:focus-within)]:pointer-events-none group-[:not(:hover):not(:focus-within)]:opacity-0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-md-heavy"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg></button></span></div></div></div></div>
+<hr data-start="1525" data-end="1528">
+<h3 data-start="1530" data-end="1559">🎯 Choosing k in Practice</h3>
+<ol data-start="1560" data-end="1978">
+<li data-start="1560" data-end="1719">
+<p data-start="1563" data-end="1719"><strong data-start="1563" data-end="1583">Cross-Validation</strong>: Evaluate performance (e.g., accuracy, F1) across a range of k values on held-out folds and pick the one minimizing validation error.</p>
+</li>
+<li data-start="1720" data-end="1835">
+<p data-start="1723" data-end="1835"><strong data-start="1723" data-end="1740">Rule-of-Thumb</strong>: Often start with <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≈</mo><msqrt><mi>N</mi></msqrt></mrow><annotation encoding="application/x-tex">k \approx \sqrt{N}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6944em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1.04em; vertical-align: -0.1133em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.9267em;"><span class="svg-align" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord" style="padding-left: 0.833em;"><span class="mord mathnormal" style="margin-right: 0.10903em;">N</span></span></span><span style="top: -2.8867em;"><span class="pstrut" style="height: 3em;"></span><span class="hide-tail" style="min-width: 0.853em; height: 1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"></path></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.1133em;"><span></span></span></span></span></span></span></span></span> (where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.10903em;">N</span></span></span></span> is the number of training examples).</p>
+</li>
+<li data-start="1836" data-end="1978">
+<p data-start="1839" data-end="1978"><strong data-start="1839" data-end="1861">Distance Weighting</strong>: You can also weight neighbors by inverse distance to reduce sensitivity (mitigating high variance when k is small).</p>
+</li>
+</ol>
+<p data-start="1980" data-end="2120" data-is-last-node="" data-is-only-node="">By tuning k, you’re effectively sliding along the bias–variance spectrum until you find the sweet spot that generalizes best to unseen data.</p></div>
+
+<hr>
+
+<h2>How would you handle ties when multiple neighbors have the same distance?</h2>
+
+<div class="markdown prose dark:prose-invert w-full break-words light"><p data-start="0" data-end="180">When two or more classes (in classification) or target‐values (in regression) tie for “most neighbors” at the exact same distance, you have a few practical tie-breaking strategies:</p>
+<ol data-start="182" data-end="1670">
+<li data-start="182" data-end="398">
+<p data-start="185" data-end="207"><strong data-start="185" data-end="205">Random Tie-Break</strong></p>
+<ul data-start="211" data-end="398">
+<li data-start="211" data-end="264">
+<p data-start="213" data-end="264">Randomly pick one of the tied neighbors’ classes.</p>
+</li>
+<li data-start="268" data-end="318">
+<p data-start="270" data-end="318">Pros: Keeps KNN unbiased; simple to implement.</p>
+</li>
+<li data-start="322" data-end="398">
+<p data-start="324" data-end="398">Cons: Introduces nondeterminism—different runs may give different results.</p>
+</li>
+</ul>
+</li>
+<li data-start="400" data-end="738">
+<p data-start="403" data-end="433"><strong data-start="403" data-end="431">Distance-Weighted Voting</strong></p>
+<ul data-start="437" data-end="738">
+<li data-start="437" data-end="544">
+<p data-start="439" data-end="544">Instead of a strict majority vote, weight each neighbor’s vote by <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mo stretchy="false">(</mo><mtext>distance</mtext><mo>+</mo><mi>ϵ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">1 / (\text{distance} + \epsilon)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">1/</span><span class="mopen">(</span><span class="mord text"><span class="mord">distance</span></span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">ϵ</span><span class="mclose">)</span></span></span></span>.</p>
+</li>
+<li data-start="548" data-end="658">
+<p data-start="550" data-end="658">Ties at the same distance still tie in weight, but you could then fall back to another rule (e.g. random).</p>
+</li>
+<li data-start="662" data-end="738">
+<p data-start="664" data-end="738">Pros: Closer points always count more, reducing the chance of equal votes.</p>
+</li>
+</ul>
+</li>
+<li data-start="740" data-end="975">
+<p data-start="743" data-end="776"><strong data-start="743" data-end="774">Use a Smaller k or an Odd k</strong></p>
+<ul data-start="780" data-end="975">
+<li data-start="780" data-end="875">
+<p data-start="782" data-end="875">Choosing an odd <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6944em;"></span><span class="mord mathnormal" style="margin-right: 0.03148em;">k</span></span></span></span> in binary classification reduces exact ties (e.g. 5 vs. 6 neighbors).</p>
+</li>
+<li data-start="879" data-end="917">
+<p data-start="881" data-end="917">Pros: Simple preventative measure.</p>
+</li>
+<li data-start="921" data-end="975">
+<p data-start="923" data-end="975">Cons: Doesn’t eliminate ties in multiclass problems.</p>
+</li>
+</ul>
+</li>
+<li data-start="977" data-end="1338">
+<p data-start="980" data-end="1021"><strong data-start="980" data-end="1019">Priority by Class Frequency or Rank</strong></p>
+<ul data-start="1025" data-end="1338">
+<li data-start="1025" data-end="1131">
+<p data-start="1027" data-end="1131">If two classes tie, pick the one with higher overall frequency in the training set (i.e. the “prior”).</p>
+</li>
+<li data-start="1135" data-end="1210">
+<p data-start="1137" data-end="1210">Or define a fixed class ordering and choose the earliest in that order.</p>
+</li>
+<li data-start="1214" data-end="1268">
+<p data-start="1216" data-end="1268">Pros: Deterministic; can encode domain priorities.</p>
+</li>
+<li data-start="1272" data-end="1338">
+<p data-start="1274" data-end="1338">Cons: Biased toward more frequent classes or arbitrary ordering.</p>
+</li>
+</ul>
+</li>
+<li data-start="1340" data-end="1670">
+<p data-start="1343" data-end="1372"><strong data-start="1343" data-end="1370">Expand the Neighborhood</strong></p>
+<ul data-start="1376" data-end="1670">
+<li data-start="1376" data-end="1497">
+<p data-start="1378" data-end="1497">If there’s a tie at distance <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6944em;"></span><span class="mord mathnormal">d</span></span></span></span>, include <em data-start="1422" data-end="1427">all</em> points at distance <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6944em;"></span><span class="mord mathnormal">d</span></span></span></span> (so your effective neighborhood size &gt; k).</p>
+</li>
+<li data-start="1501" data-end="1539">
+<p data-start="1503" data-end="1539">Then vote among this expanded set.</p>
+</li>
+<li data-start="1543" data-end="1614">
+<p data-start="1545" data-end="1614">Pros: More consistent with the geometric definition of “k nearest.”</p>
+</li>
+<li data-start="1618" data-end="1670">
+<p data-start="1620" data-end="1670">Cons: Can change computational cost unpredictably.</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr data-start="1672" data-end="1675">
+<h3 data-start="1677" data-end="1694">Which to Use?</h3>
+<ul data-start="1695" data-end="1993">
+<li data-start="1695" data-end="1751">
+<p data-start="1697" data-end="1751"><strong data-start="1697" data-end="1717">Random tie-break</strong> is often fine if ties are rare.</p>
+</li>
+<li data-start="1752" data-end="1862">
+<p data-start="1754" data-end="1862"><strong data-start="1754" data-end="1782">Distance-weighted voting</strong> is generally best practice—it naturally breaks ties by considering proximity.</p>
+</li>
+<li data-start="1863" data-end="1928">
+<p data-start="1865" data-end="1928">Choosing an <strong data-start="1877" data-end="1886">odd k</strong> is a simple precaution in binary tasks.</p>
+</li>
+<li data-start="1929" data-end="1993">
+<p data-start="1931" data-end="1993"><strong data-start="1931" data-end="1949">Priority rules</strong> can embed domain knowledge but risk bias.</p>
+</li>
+</ul>
+<p data-start="1995" data-end="2179" data-is-last-node="" data-is-only-node="">In most implementations, <strong data-start="2020" data-end="2048">distance-weighted voting</strong> (with a tiny <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">ϵ</span></span></span></span> to avoid division by zero) plus a random fallback is a robust, deterministic approach for handling ties.</p></div>
+
+<hr>
+
+<h2>What distance metrics can you use in KNN? When would you use cosine similarity over Euclidean distance?</h2>
+
+<div class="markdown prose dark:prose-invert w-full break-words light"><p data-start="0" data-end="207">KNN’s “nearness” can be defined in many ways. Here are some of the most common distance (or similarity) metrics you might choose—and when you’d prefer <strong data-start="151" data-end="172">cosine similarity</strong> over, say, <strong data-start="184" data-end="206">Euclidean distance</strong>:</p>
+<hr data-start="209" data-end="212">
+<h2 data-start="214" data-end="244">1. <strong data-start="220" data-end="242">Euclidean Distance</strong></h2>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo stretchy="false">(</mo><mi mathvariant="bold">x</mi><mo separator="true">,</mo><mi mathvariant="bold">y</mi><mo stretchy="false">)</mo><mo>=</mo><msqrt><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">d(\mathbf{x}, \mathbf{y}) = \sqrt{\sum_{i=1}^n (x_i - y_i)^2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">d</span><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathbf" style="margin-right: 0.01597em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 3.1568em; vertical-align: -1.2777em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.8791em;"><span class="svg-align" style="top: -5.1168em;"><span class="pstrut" style="height: 5.1168em;"></span><span class="mord" style="padding-left: 1.056em;"><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.6514em;"><span style="top: -1.8723em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top: -3.05em;"><span class="pstrut" style="height: 3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top: -4.3em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.2777em;"><span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span style="top: -2.55em; margin-left: -0.0359em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7401em;"><span style="top: -2.989em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span><span style="top: -3.8391em;"><span class="pstrut" style="height: 5.1168em;"></span><span class="hide-tail" style="min-width: 0.742em; height: 3.1968em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="3.1968em" viewBox="0 0 400000 3196" preserveAspectRatio="xMinYMin slice"><path d="M702 80H40000040
+H742v3062l-4 4-4 4c-.667.7 -2 1.5-4 2.5s-4.167 1.833-6.5 2.5-5.5 1-9.5 1
+h-12l-28-84c-16.667-52-96.667 -294.333-240-727l-212 -643 -85 170
+c-4-3.333-8.333-7.667-13 -13l-13-13l77-155 77-156c66 199.333 139 419.667
+219 661 l218 661zM702 80H400000v40H742z"></path></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.2777em;"><span></span></span></span></span></span></span></span></span></span>
+<ul data-start="315" data-end="468">
+<li data-start="315" data-end="468">
+<p data-start="317" data-end="468"><strong data-start="317" data-end="329">Use when</strong>: All features are on the same scale (or have been normalized), and you care about absolute geometric closeness in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>-dimensional space.</p>
+</li>
+</ul>
+<hr data-start="470" data-end="473">
+<h2 data-start="475" data-end="518">2. <strong data-start="481" data-end="516">Manhattan (City-Block) Distance</strong></h2>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo stretchy="false">(</mo><mi mathvariant="bold">x</mi><mo separator="true">,</mo><mi mathvariant="bold">y</mi><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mi mathvariant="normal">∣</mi><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^n |x_i - y_i|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">d</span><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathbf" style="margin-right: 0.01597em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 2.9291em; vertical-align: -1.2777em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.6514em;"><span style="top: -1.8723em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top: -3.05em;"><span class="pstrut" style="height: 3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top: -4.3em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span style="top: -2.55em; margin-left: -0.0359em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span></span></span></span></span>
+<ul data-start="580" data-end="694">
+<li data-start="580" data-end="694">
+<p data-start="582" data-end="694"><strong data-start="582" data-end="594">Use when</strong>: You want to penalize differences linearly (L₁ norm). Often more robust to outliers than Euclidean.</p>
+</li>
+</ul>
+<hr data-start="696" data-end="699">
+<h2 data-start="701" data-end="731">3. <strong data-start="707" data-end="729">Minkowski Distance</strong></h2>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo stretchy="false">(</mo><mi mathvariant="bold">x</mi><mo separator="true">,</mo><mi mathvariant="bold">y</mi><mo stretchy="false">)</mo><mo>=</mo><mo fence="true" stretchy="true" minsize="1.8em" maxsize="1.8em">(</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mi mathvariant="normal">∣</mi><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><msup><mi mathvariant="normal">∣</mi><mi>p</mi></msup><msup><mo fence="true" stretchy="true" minsize="1.8em" maxsize="1.8em">)</mo><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mi>p</mi></mrow></msup></mrow><annotation encoding="application/x-tex">d(\mathbf{x}, \mathbf{y}) = \Bigl(\sum_{i=1}^n |x_i - y_i|^p\Bigr)^{1/p}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">d</span><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathbf" style="margin-right: 0.01597em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 2.9291em; vertical-align: -1.2777em;"></span><span class="mopen"><span class="delimsizing size2">(</span></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.6514em;"><span style="top: -1.8723em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top: -3.05em;"><span class="pstrut" style="height: 3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top: -4.3em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 2.0779em; vertical-align: -0.65em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span style="top: -2.55em; margin-left: -0.0359em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7144em;"><span style="top: -3.113em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span></span></span></span></span><span class="mclose"><span class="mclose"><span class="delimsizing size2">)</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 1.4279em;"><span style="top: -3.6029em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1/</span><span class="mord mathnormal mtight">p</span></span></span></span></span></span></span></span></span></span></span></span></span>
+<ul data-start="813" data-end="964">
+<li data-start="813" data-end="875">
+<p data-start="815" data-end="875"><strong data-start="815" data-end="833">Generalization</strong> of Euclidean (p=2) and Manhattan (p=1).</p>
+</li>
+<li data-start="876" data-end="964">
+<p data-start="878" data-end="964"><strong data-start="878" data-end="890">Use when</strong>: You want a tunable norm; higher <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span> emphasizes large differences more.</p>
+</li>
+</ul>
+<hr data-start="966" data-end="969">
+<h2 data-start="971" data-end="1001">4. <strong data-start="977" data-end="999">Chebyshev Distance</strong></h2>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo stretchy="false">(</mo><mi mathvariant="bold">x</mi><mo separator="true">,</mo><mi mathvariant="bold">y</mi><mo stretchy="false">)</mo><mo>=</mo><munder><mrow><mi>max</mi><mo>⁡</mo></mrow><mi>i</mi></munder><mi mathvariant="normal">∣</mi><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">d(\mathbf{x}, \mathbf{y}) = \max_i |x_i - y_i|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">d</span><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathbf" style="margin-right: 0.01597em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1.4777em; vertical-align: -0.7277em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.4306em;"><span style="top: -2.3723em; margin-left: 0em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span><span class="mop">max</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.7277em;"><span></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span style="top: -2.55em; margin-left: -0.0359em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span></span></span></span></span>
+<ul data-start="1057" data-end="1156">
+<li data-start="1057" data-end="1156">
+<p data-start="1059" data-end="1156"><strong data-start="1059" data-end="1071">Use when</strong>: You care about the largest single-coordinate difference (e.g. in chessboard moves).</p>
+</li>
+</ul>
+<hr data-start="1158" data-end="1161">
+<h2 data-start="1163" data-end="1195">5. <strong data-start="1169" data-end="1193">Mahalanobis Distance</strong></h2>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo stretchy="false">(</mo><mi mathvariant="bold">x</mi><mo separator="true">,</mo><mi mathvariant="bold">y</mi><mo stretchy="false">)</mo><mo>=</mo><msqrt><mrow><mo stretchy="false">(</mo><mi mathvariant="bold">x</mi><mo>−</mo><mi mathvariant="bold">y</mi><msup><mo stretchy="false">)</mo><mi mathvariant="normal">⊤</mi></msup><msup><mi mathvariant="bold">S</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo stretchy="false">(</mo><mi mathvariant="bold">x</mi><mo>−</mo><mi mathvariant="bold">y</mi><mo stretchy="false">)</mo></mrow></msqrt></mrow><annotation encoding="application/x-tex">d(\mathbf{x}, \mathbf{y}) = \sqrt{(\mathbf{x}-\mathbf{y})^\top \mathbf{S}^{-1} (\mathbf{x}-\mathbf{y})}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">d</span><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathbf" style="margin-right: 0.01597em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1.84em; vertical-align: -0.5436em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.2964em;"><span class="svg-align" style="top: -3.8em;"><span class="pstrut" style="height: 3.8em;"></span><span class="mord" style="padding-left: 1em;"><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mord mathbf" style="margin-right: 0.01597em;">y</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7751em;"><span style="top: -2.989em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">⊤</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathbf">S</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7401em;"><span style="top: -2.989em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mord mathbf" style="margin-right: 0.01597em;">y</span><span class="mclose">)</span></span></span><span style="top: -3.2564em;"><span class="pstrut" style="height: 3.8em;"></span><span class="hide-tail" style="min-width: 1.02em; height: 1.88em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.88em" viewBox="0 0 400000 1944" preserveAspectRatio="xMinYMin slice"><path d="M983 90
+l0 -0
+c4,-6.7,10,-10,18,-10 H400000v40
+H1013.1s-83.4,268,-264.1,840c-180.7,572,-277,876.3,-289,913c-4.7,4.7,-12.7,7,-24,7
+s-12,0,-12,0c-1.3,-3.3,-3.7,-11.7,-7,-25c-35.3,-125.3,-106.7,-373.3,-214,-744
+c-10,12,-21,25,-33,39s-32,39,-32,39c-6,-5.3,-15,-14,-27,-26s25,-30,25,-30
+c26.7,-32.7,52,-63,76,-91s52,-60,52,-60s208,722,208,722
+c56,-175.3,126.3,-397.3,211,-666c84.7,-268.7,153.8,-488.2,207.5,-658.5
+c53.7,-170.3,84.5,-266.8,92.5,-289.5z
+M1001 80h400000v40h-400000z"></path></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.5436em;"><span></span></span></span></span></span></span></span></span></span>
+<p data-start="1308" data-end="1368">where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">S</mi></mrow><annotation encoding="application/x-tex">\mathbf{S}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6861em;"></span><span class="mord mathbf">S</span></span></span></span> is the covariance matrix of the data.</p>
+<ul data-start="1369" data-end="1548">
+<li data-start="1369" data-end="1548">
+<p data-start="1371" data-end="1548"><strong data-start="1371" data-end="1383">Use when</strong>: Features have different scales or are correlated—Mahalanobis “whitens” the space so that you measure distances in units of standard deviation along principal axes.</p>
+</li>
+</ul>
+<hr data-start="1550" data-end="1553">
+<h2 data-start="1555" data-end="1583">6. <strong data-start="1561" data-end="1581">Hamming Distance</strong></h2>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo stretchy="false">(</mo><mi mathvariant="bold">x</mi><mo separator="true">,</mo><mi mathvariant="bold">y</mi><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mn mathvariant="bold">1</mn><mo stretchy="false">{</mo><msub><mi>x</mi><mi>i</mi></msub><mo mathvariant="normal">≠</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^n \mathbf{1}\{x_i \neq y_i\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">d</span><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathbf" style="margin-right: 0.01597em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 2.9291em; vertical-align: -1.2777em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.6514em;"><span style="top: -1.8723em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top: -3.05em;"><span class="pstrut" style="height: 3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top: -4.3em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathbf">1</span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height: 0.8889em; vertical-align: -0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span style="top: -2.55em; margin-left: -0.0359em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span></span>
+<ul data-start="1660" data-end="1730">
+<li data-start="1660" data-end="1730">
+<p data-start="1662" data-end="1730"><strong data-start="1662" data-end="1674">Use when</strong>: Features are categorical or binary (e.g. bit strings).</p>
+</li>
+</ul>
+<hr data-start="1732" data-end="1735">
+<h2 data-start="1737" data-end="1766">7. <strong data-start="1743" data-end="1764">Cosine Similarity</strong></h2>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>sim</mtext><mo stretchy="false">(</mo><mi mathvariant="bold">x</mi><mo separator="true">,</mo><mi mathvariant="bold">y</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi mathvariant="bold">x</mi><mo>⋅</mo><mi mathvariant="bold">y</mi></mrow><mrow><mi mathvariant="normal">∥</mi><mi mathvariant="bold">x</mi><mi mathvariant="normal">∥</mi><mtext>  </mtext><mi mathvariant="normal">∥</mi><mi mathvariant="bold">y</mi><mi mathvariant="normal">∥</mi></mrow></mfrac><mspace width="1em"></mspace><mo>⟺</mo><mspace width="1em"></mspace><mtext>distance</mtext><mo>=</mo><mn>1</mn><mo>−</mo><mtext>sim</mtext></mrow><annotation encoding="application/x-tex">\text{sim}(\mathbf{x}, \mathbf{y}) = \frac{\mathbf{x}\cdot \mathbf{y}}{\|\mathbf{x}\|\;\|\mathbf{y}\|}  
+\quad\Longleftrightarrow\quad  
+\text{distance} = 1 - \text{sim}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord">sim</span></span><span class="mopen">(</span><span class="mord mathbf">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathbf" style="margin-right: 0.01597em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 2.0574em; vertical-align: -0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.1214em;"><span style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">∥</span><span class="mord mathbf">x</span><span class="mord">∥</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord">∥</span><span class="mord mathbf" style="margin-right: 0.01597em;">y</span><span class="mord">∥</span></span></span><span style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathbf">x</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mord mathbf" style="margin-right: 0.01597em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right: 1em;"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">⟺</span><span class="mspace" style="margin-right: 1em;"></span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6944em;"></span><span class="mord text"><span class="mord">distance</span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6679em;"></span><span class="mord text"><span class="mord">sim</span></span></span></span></span></span>
+<ul data-start="1945" data-end="2241">
+<li data-start="1945" data-end="2241">
+<p data-start="1947" data-end="1962"><strong data-start="1947" data-end="1959">Use when</strong>:</p>
+<ul data-start="1965" data-end="2241">
+<li data-start="1965" data-end="2041">
+<p data-start="1967" data-end="2041"><strong data-start="1967" data-end="1995">Magnitude doesn’t matter</strong>—only the <strong data-start="2005" data-end="2014">angle</strong> between vectors matters.</p>
+</li>
+<li data-start="2044" data-end="2149">
+<p data-start="2046" data-end="2149">Data is <strong data-start="2054" data-end="2074">high-dimensional</strong> and <strong data-start="2079" data-end="2089">sparse</strong> (e.g. TF–IDF text vectors, user-item preference vectors).</p>
+</li>
+<li data-start="2152" data-end="2241">
+<p data-start="2154" data-end="2241">You want to compare “patterns of presence/absence or frequency” rather than raw counts.</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr data-start="2243" data-end="2246">
+<h3 data-start="2248" data-end="2295">🎯 <strong data-start="2255" data-end="2295">When to Prefer Cosine over Euclidean</strong></h3>
+<ol data-start="2297" data-end="2932">
+<li data-start="2297" data-end="2541">
+<p data-start="2300" data-end="2541"><strong data-start="2300" data-end="2314">Text / NLP</strong>: Document-term matrices (TF–IDF) often have thousands of dimensions; two long documents may have high Euclidean distance simply because they’re long, whereas cosine focuses on their <em data-start="2497" data-end="2515">topic similarity</em> (co-occurrence patterns).</p>
+</li>
+<li data-start="2543" data-end="2728">
+<p data-start="2546" data-end="2728"><strong data-start="2546" data-end="2568">User-Item Profiles</strong>: In recommendation systems, two users may have rated different numbers of items. Cosine normalizes away “activity level” and matches on <em data-start="2705" data-end="2727">relative preferences</em>.</p>
+</li>
+<li data-start="2730" data-end="2932">
+<p data-start="2733" data-end="2932"><strong data-start="2733" data-end="2765">High-Dimensional Sparse Data</strong>: Euclidean distance in sparse spaces can be dominated by dimensions where both vectors are zero; cosine ignores those and focuses on where either has nonzero entries.</p>
+</li>
+</ol>
+<hr data-start="2934" data-end="2937">
+<h3 data-start="2939" data-end="2963">📝 <strong data-start="2946" data-end="2963">Practical Tip</strong></h3>
+<ul data-start="2965" data-end="3214">
+<li data-start="2965" data-end="3214">
+<p data-start="2967" data-end="3017"><strong data-start="2967" data-end="2977">Always</strong> preprocess your features appropriately:</p>
+<ul data-start="3020" data-end="3214">
+<li data-start="3020" data-end="3118">
+<p data-start="3022" data-end="3118">For Euclidean/Manhattan/Minkowski: <strong data-start="3057" data-end="3079">scale or normalize</strong> (e.g. StandardScaler or MinMaxScaler).</p>
+</li>
+<li data-start="3121" data-end="3214">
+<p data-start="3123" data-end="3214">For cosine: ensure vectors are in a <strong data-start="3159" data-end="3180">nonnegative space</strong> if you’re using it as a distance.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p data-start="3216" data-end="3371" data-is-last-node="" data-is-only-node="">By matching your distance metric to the nature of your data—absolute geometric closeness vs. directional similarity—you’ll get much better KNN performance.</p></div>
+
+<hr>
+
+<h2>Why is feature scaling important for KNN?</h2>
+
+<div class="markdown prose dark:prose-invert w-full break-words light"><p data-start="0" data-end="282">Feature scaling is critical for KNN because the algorithm makes predictions based entirely on distance computations. If your features live on wildly different scales, those with larger ranges will dominate the distance metric and drown out the influence of smaller-scale features.</p>
+<hr data-start="284" data-end="287">
+<h3 data-start="289" data-end="329">1. <strong data-start="296" data-end="327">Equal Weighting of Features</strong></h3>
+<ul data-start="330" data-end="676">
+<li data-start="330" data-end="535">
+<p data-start="332" data-end="535"><strong data-start="332" data-end="344">Unscaled</strong>: Suppose one feature is age (0–100) and another is income (0–100,000). Even small differences in income (say ±1000) produce a much larger Euclidean distance impact than huge swings in age.</p>
+</li>
+<li data-start="536" data-end="676">
+<p data-start="538" data-end="676"><strong data-start="538" data-end="548">Scaled</strong>: By bringing both into a comparable range (e.g. 0–1 or standard normal), each feature contributes proportionally to “nearness.”</p>
+</li>
+</ul>
+<h3 data-start="678" data-end="719">2. <strong data-start="685" data-end="717">Consistent Distance Geometry</strong></h3>
+<ul data-start="720" data-end="904">
+<li data-start="720" data-end="904">
+<p data-start="722" data-end="904">KNN’s decision boundaries depend on Euclidean (or other) geometry. Without scaling, those boundaries get warped toward high-variance dimensions, leading to biased neighbor selection.</p>
+</li>
+</ul>
+<h3 data-start="906" data-end="951">3. <strong data-start="913" data-end="949">Focus on Informative Differences</strong></h3>
+<ul data-start="952" data-end="1090">
+<li data-start="952" data-end="1090">
+<p data-start="954" data-end="1090">Scaling ensures that KNN is responding to genuine patterns across all features, not just picking up on a handful of high-magnitude ones.</p>
+</li>
+</ul>
+<hr data-start="1092" data-end="1095">
+<h3 data-start="1097" data-end="1126">Common Scaling Techniques</h3>
+<ol data-start="1128" data-end="1396">
+<li data-start="1128" data-end="1261">
+<p data-start="1131" data-end="1158"><strong data-start="1131" data-end="1156">Min–Max Normalization</strong></p>
+<span class="katex-display" style=""><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>x</mi><mtext>scaled</mtext></msub><mo>=</mo><mfrac><mrow><mi>x</mi><mo>−</mo><msub><mi>x</mi><mi>min</mi><mo>⁡</mo></msub></mrow><mrow><msub><mi>x</mi><mi>max</mi><mo>⁡</mo></msub><mo>−</mo><msub><mi>x</mi><mi>min</mi><mo>⁡</mo></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">x_{\text{scaled}} = \frac{x - x_{\min}}{x_{\max} - x_{\min}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.5806em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3361em;"><span style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">scaled</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 2.0963em; vertical-align: -0.836em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.2603em;"><span style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.1514em;"><span style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">m</span><span class="mtight">a</span><span class="mtight">x</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3175em;"><span style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">m</span><span class="mtight">i</span><span class="mtight">n</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span></span></span></span></span></span></span></span></span><span style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3175em;"><span style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">m</span><span class="mtight">i</span><span class="mtight">n</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>
+<p data-start="1240" data-end="1261">Transforms to [0, 1].</p>
+</li>
+<li data-start="1263" data-end="1396">
+<p data-start="1266" data-end="1297"><strong data-start="1266" data-end="1295">Standardization (Z-score)</strong></p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>x</mi><mtext>scaled</mtext></msub><mo>=</mo><mfrac><mrow><mi>x</mi><mo>−</mo><mi>μ</mi></mrow><mi>σ</mi></mfrac></mrow><annotation encoding="application/x-tex">x_{\text{scaled}} = \frac{x - \mu}{\sigma}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.5806em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3361em;"><span style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">scaled</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1.9463em; vertical-align: -0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.2603em;"><span style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.03588em;">σ</span></span></span><span style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mord mathnormal">μ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>
+<p data-start="1361" data-end="1396">Centers at zero with unit variance.</p>
+</li>
+</ol>
+<hr data-start="1398" data-end="1401">
+<pre class="overflow-visible!" data-start="1403" data-end="1681"><div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary"><div class="flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary dark:bg-token-main-surface-secondary select-none rounded-t-[5px]">python</div><div class="sticky top-9"><div class="absolute end-0 bottom-0 flex h-9 items-center pe-2"><div class="bg-token-sidebar-surface-primary text-token-text-secondary dark:bg-token-main-surface-secondary flex items-center rounded-sm px-2 font-sans text-xs"><button class="flex gap-1 items-center select-none px-4 py-1" aria-label="Copy"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-xs"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>Copy</button><span class="" data-state="closed"><button class="flex items-center gap-1 px-4 py-1 select-none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-xs"><path d="M2.5 5.5C4.3 5.2 5.2 4 5.5 2.5C5.8 4 6.7 5.2 8.5 5.5C6.7 5.8 5.8 7 5.5 8.5C5.2 7 4.3 5.8 2.5 5.5Z" fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.66282 16.5231L5.18413 19.3952C5.12203 19.7678 5.09098 19.9541 5.14876 20.0888C5.19933 20.2067 5.29328 20.3007 5.41118 20.3512C5.54589 20.409 5.73218 20.378 6.10476 20.3159L8.97693 19.8372C9.72813 19.712 10.1037 19.6494 10.4542 19.521C10.7652 19.407 11.0608 19.2549 11.3343 19.068C11.6425 18.8575 11.9118 18.5882 12.4503 18.0497L20 10.5C21.3807 9.11929 21.3807 6.88071 20 5.5C18.6193 4.11929 16.3807 4.11929 15 5.5L7.45026 13.0497C6.91175 13.5882 6.6425 13.8575 6.43197 14.1657C6.24513 14.4392 6.09299 14.7348 5.97903 15.0458C5.85062 15.3963 5.78802 15.7719 5.66282 16.5231Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14.5 7L18.5 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Edit</button></span></div></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-python"><span><span><span class="hljs-keyword">from</span></span><span> sklearn.preprocessing </span><span><span class="hljs-keyword">import</span></span><span> StandardScaler
+</span><span><span class="hljs-keyword">from</span></span><span> sklearn.neighbors </span><span><span class="hljs-keyword">import</span></span><span> KNeighborsClassifier
+</span><span><span class="hljs-keyword">from</span></span><span> sklearn.pipeline </span><span><span class="hljs-keyword">import</span></span><span> make_pipeline
+
+pipeline = make_pipeline(
+    StandardScaler(),
+    KNeighborsClassifier(n_neighbors=</span><span><span class="hljs-number">5</span></span><span>)
+)
+pipeline.fit(X_train, y_train)
+</span></span></code></div></div></pre>
+<p data-start="1683" data-end="1840" data-is-last-node="" data-is-only-node="">By including a scaler in your pipeline, you ensure each feature is on the same footing, allowing KNN to find the truly “nearest” neighbors in all dimensions.</p></div>

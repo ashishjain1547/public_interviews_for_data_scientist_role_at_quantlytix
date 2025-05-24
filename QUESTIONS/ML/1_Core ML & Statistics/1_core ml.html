@@ -1,135 +1,168 @@
-<style>
-    span.katex-html {
-        display: none;
-    }
-</style>
-<h2>Share some questions to ask in an ML interview.</h2>
+<head>
+    <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    
+    <!-- Google AdSense Using Machine Learning Code -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-3071098372371409",
+            enable_page_level_ads: true
+        });
+    </script>
+    
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "https://raw.githubusercontent.com/ashishjain1547/pubLessonsInTechnology/main/links_to_tech_clubs.json",
+                success: function (result) {
+                    let grouplink = JSON.parse(result)['Beta Tech Club'];
+                    $("#customWhatsAppGroupLinkWrapper").html(
+                        `
+                        <h2 class="custom_link_h2"><a href="${grouplink}" target="_blank"> 
+                            <span>Join us on:</span>
+                            <span class="customLink"><i class="fa fa-whatsapp"></i> Whatsapp </span>
+                            </a>
+                        </h2>
+                        `
+                    );
+                }
+            });
+        });
+    </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <style>
+        pre {
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+        }
+    
+        .customLink {
+            background-color: #4CAF50;
+            border: none;
+            color: white !important;
+            padding: 8px 13px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    
+        .customLink:hover {
+            text-decoration: none;
+        }
+    
+        div.code-block-decoration.footer {
+            display: none;
+        }
+    
+        button.export-sheets-button-wrapper {
+            display: none;
+        }
+    </style>
+    
+    <style>
+        .custom_link_h2 a {
+            color: black;
+            text-decoration: none;
+            text-align: center;
+        }
+    
+        .custom_link_h2 a:hover {
+            color: black;
+        }
+    
+        .custom_link_h2 a:active {
+            color: black;
+        }
+    
+        .custom_link_h2 span {
+            translate: 0px -5px;
+            display: inline-block;
+        }
+    
+        .custom_link_h2 img {
+            width: 100px;
+            padding: 0px;
+            border: none;
+            box-shadow: none;
+        }
+    </style>
+    <style>
+        .customul {
+            list-style: none;
+        }
+    
+        [aria-hidden='true'] {
+            display: none;
+        }
+    
+        .custom_iframe {
+            width: 100%;
+            height: 305px;
+        }
+    
+        i.ir { color: red; }
+        i.ig { color: green; }
+        i.ib { color: blue; }
+        i.im { color: magenta; }
+        i.ip { color: purple; }
+    
+        .customTable td {
+            padding: 2px;
+        }
+    
+        i.green {
+            color: green;
+        }
+    
+        i.red {
+            color: red;
+        }
+    
+        i.blue {
+            color: blue;
+        }
+    
+        button.flex.gap-1.items-center.select-none.px-4.py-1 {
+            display: none;
+        }
+    
+        button.flex.select-none.items-center.gap-1 {
+            display: none;
+        }
 
-<div class="markdown prose dark:prose-invert w-full break-words light"><p data-start="0" data-end="202" class="">Absolutely! Here’s a mix of <strong data-start="28" data-end="41">technical</strong>, <strong data-start="43" data-end="58">theoretical</strong>, and <strong data-start="64" data-end="77">practical</strong> machine learning interview questions—good to <strong data-start="123" data-end="130">ask</strong> the interviewer or be <strong data-start="153" data-end="175">prepared to answer</strong>, depending on the context:</p>
-    <hr data-start="204" data-end="207" class="">
-    <h3 data-start="209" data-end="270" class="">🔍 <strong data-start="216" data-end="270">To Ask the Interviewer (to show curiosity &amp; depth)</strong></h3>
-    <h4 data-start="272" data-end="301" class="">📌 About the Role / Team</h4>
-    <ul data-start="302" data-end="716">
-    <li data-start="302" data-end="373" class="">
-    <p data-start="304" data-end="373" class="">What are the most common machine learning problems your team tackles?</p>
-    </li>
-    <li data-start="374" data-end="455" class="">
-    <p data-start="376" data-end="455" class="">Which algorithms or models are used most frequently in your production systems?</p>
-    </li>
-    <li data-start="456" data-end="536" class="">
-    <p data-start="458" data-end="536" class="">How much of the work is modeling vs. data preprocessing / feature engineering?</p>
-    </li>
-    <li data-start="537" data-end="612" class="">
-    <p data-start="539" data-end="612" class="">How do you handle model monitoring and performance degradation over time?</p>
-    </li>
-    <li data-start="613" data-end="716" class="">
-    <p data-start="615" data-end="716" class="">Is the ML pipeline fully automated or more manual? What tools are used (e.g., MLFlow, Airflow, etc.)?</p>
-    </li>
-    </ul>
-    <h4 data-start="718" data-end="752" class="">📌 About Data &amp; Collaboration</h4>
-    <ul data-start="753" data-end="1024">
-    <li data-start="753" data-end="857" class="">
-    <p data-start="755" data-end="857" class="">What kind of datasets does the team typically work with (structured, unstructured, time-series, etc.)?</p>
-    </li>
-    <li data-start="858" data-end="928" class="">
-    <p data-start="860" data-end="928" class="">Are there any major data quality or imbalance issues you face often?</p>
-    </li>
-    <li data-start="929" data-end="1024" class="">
-    <p data-start="931" data-end="1024" class="">How do ML engineers and data scientists collaborate with software engineers or product teams?</p>
-    </li>
-    </ul>
-    <h4 data-start="1026" data-end="1056" class="">📌 About the ML Lifecycle</h4>
-    <ul data-start="1057" data-end="1266">
-    <li data-start="1057" data-end="1122" class="">
-    <p data-start="1059" data-end="1122" class="">What’s your typical approach to model selection and evaluation?</p>
-    </li>
-    <li data-start="1123" data-end="1194" class="">
-    <p data-start="1125" data-end="1194" class="">How do you manage hyperparameter tuning and experimentation at scale?</p>
-    </li>
-    <li data-start="1195" data-end="1266" class="">
-    <p data-start="1197" data-end="1266" class="">How is feedback from deployed models used to improve future versions?</p>
-    </li>
-    </ul>
-    <h4 data-start="1268" data-end="1306" class="">📌 About Career Growth / Learning</h4>
-    <ul data-start="1307" data-end="1434">
-    <li data-start="1307" data-end="1373" class="">
-    <p data-start="1309" data-end="1373" class="">Are there opportunities for research or publishing in this role?</p>
-    </li>
-    <li data-start="1374" data-end="1434" class="">
-    <p data-start="1376" data-end="1434" class="">How do team members stay current with the latest in ML/AI?</p>
-    </li>
-    </ul>
-    <hr data-start="1436" data-end="1439" class="">
-    <h3 data-start="1441" data-end="1476" class="">💡 <strong data-start="1448" data-end="1476">To Be Prepared to Answer</strong></h3>
-    <p data-start="1477" data-end="1546" class="">(These are often asked in technical rounds or behavioral interviews.)</p>
-    <h4 data-start="1548" data-end="1576" class="">📊 Core ML &amp; Statistics</h4>
-    <ul data-start="1577" data-end="1815">
-    <li data-start="1577" data-end="1641" class="">
-    <p data-start="1579" data-end="1641" class="">How do you choose between bias and variance in model training?</p>
-    </li>
-    <li data-start="1642" data-end="1686" class="">
-    <p data-start="1644" data-end="1686" class="">What is regularization? Explain L1 vs. L2.</p>
-    </li>
-    <li data-start="1687" data-end="1771" class="">
-    <p data-start="1689" data-end="1771" class="">Explain precision, recall, F1-score, and when you’d prioritize one over the other.</p>
-    </li>
-    <li data-start="1772" data-end="1815" class="">
-    <p data-start="1774" data-end="1815" class="">What is the ROC curve? How is AUC useful?</p>
-    </li>
-    </ul>
-    <h4 data-start="1817" data-end="1846" class="">🧠 Modeling &amp; Algorithms</h4>
-    <ul data-start="1847" data-end="2072">
-    <li data-start="1847" data-end="1911" class="">
-    <p data-start="1849" data-end="1911" class="">When would you prefer decision trees over logistic regression?</p>
-    </li>
-    <li data-start="1912" data-end="1962" class="">
-    <p data-start="1914" data-end="1962" class="">Explain how a random forest handles overfitting.</p>
-    </li>
-    <li data-start="1963" data-end="2015" class="">
-    <p data-start="1965" data-end="2015" class="">What are the assumptions behind linear regression?</p>
-    </li>
-    <li data-start="2016" data-end="2072" class="">
-    <p data-start="2018" data-end="2072" class="">Describe the differences between bagging and boosting.</p>
-    </li>
-    </ul>
-    <h4 data-start="2074" data-end="2095" class="">🧹 Data Handling</h4>
-    <ul data-start="2096" data-end="2237">
-    <li data-start="2096" data-end="2129" class="">
-    <p data-start="2098" data-end="2129" class="">How do you handle missing data?</p>
-    </li>
-    <li data-start="2130" data-end="2181" class="">
-    <p data-start="2132" data-end="2181" class="">What techniques do you use for feature selection?</p>
-    </li>
-    <li data-start="2182" data-end="2237" class="">
-    <p data-start="2184" data-end="2237" class="">How do you treat categorical variables for ML models?</p>
-    </li>
-    </ul>
-    <h4 data-start="2239" data-end="2270" class="">⚙️ Deployment &amp; Production</h4>
-    <ul data-start="2271" data-end="2465">
-    <li data-start="2271" data-end="2326" class="">
-    <p data-start="2273" data-end="2326" class="">How would you deploy a model for real-time inference?</p>
-    </li>
-    <li data-start="2327" data-end="2405" class="">
-    <p data-start="2329" data-end="2405" class="">What steps would you take if your deployed model’s accuracy starts dropping?</p>
-    </li>
-    <li data-start="2406" data-end="2465" class="">
-    <p data-start="2408" data-end="2465" class="">How do you track and compare model performance over time?</p>
-    </li>
-    </ul>
-    <h4 data-start="2467" data-end="2502" class="">🧠 Deep Learning (if relevant)</h4>
-    <ul data-start="2503" data-end="2651">
-    <li data-start="2503" data-end="2552" class="">
-    <p data-start="2505" data-end="2552" class="">What’s the difference between a CNN and an RNN?</p>
-    </li>
-    <li data-start="2553" data-end="2592" class="">
-    <p data-start="2555" data-end="2592" class="">When would you use transfer learning?</p>
-    </li>
-    <li data-start="2593" data-end="2651" class="">
-    <p data-start="2595" data-end="2651" class="">How do activation functions affect the learning process?</p>
-    </li>
-    </ul>
-    <hr data-start="2653" data-end="2656" class="">
-    <p data-start="2658" data-end="2792" class="">Would you like me to tailor the questions more toward <strong data-start="2712" data-end="2731">a specific role</strong> (like ML Engineer vs. Data Scientist), or keep them general?</p></div>
+        button.bg-token-bg-primary {
+            display: none;
+        }
+    
+        .flex.items-center {
+            display: none;
+        }
+
+        span.katex-html {
+            display: none;
+        }
+
+    </style>
+</head>
+
+<div id="customWhatsAppGroupLinkWrapper"></div>
+
+To See All Articles About Technology: <a class="customLink" href="https://survival8.blogspot.com/p/index-of-lessons-in-technology.html" target="_blank">Index of Lessons in Technology</a>
+
+<br>
+
+<div class="separator" style="clear: both;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgvVm8LrJwRw61vDoWE4Sa60Vw2div3UqAEpI6GT8U_1PM6e5bg8Am6KcY8mxnFGhMGA_u5yyx48CyXp_w-ogVZ7sklChB2XG0zcyUqnihV_FySpa0mWxPEfBm1L-QWGCxfyhrFmw4C451WVQDtYcFyN24ltwtJ2TqG4XFiK6Sl_Cd2zeRQNXZDS8BKhpM7/s1024/machine%20learning%20interview.jpg" style="display: block; padding: 1em 0; text-align: center; "><img alt="" border="0" width="600" data-original-height="724" data-original-width="1024" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgvVm8LrJwRw61vDoWE4Sa60Vw2div3UqAEpI6GT8U_1PM6e5bg8Am6KcY8mxnFGhMGA_u5yyx48CyXp_w-ogVZ7sklChB2XG0zcyUqnihV_FySpa0mWxPEfBm1L-QWGCxfyhrFmw4C451WVQDtYcFyN24ltwtJ2TqG4XFiK6Sl_Cd2zeRQNXZDS8BKhpM7/s600/machine%20learning%20interview.jpg"/></a></div>
+
+<pre><b>LLM Used</b>: ChatGPT leveraging GPT-4.5 as in May 2025.</pre>
 
 <h2>How do you choose between bias and variance in model training?</h2>
 
@@ -336,6 +369,15 @@
 
 <h2>Can you share one simple numerical on Precision and Recall?</h2>
 
+<h3>Find Precision and Recall for the below span email classifier problem.</h3>
+
+<pre>
+Out of 100 emails, 40 are spam mails
+Model predicted 50 spam mails:
+30 (correctly predicted spam)
+20 (predicted spam, but not spam)
+10 (actual spam, but predicted not spam)</pre>
+
 <div class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]"><div class="markdown prose dark:prose-invert w-full break-words light"><p data-start="0" data-end="103" class="">Absolutely! Let's go through a <strong data-start="31" data-end="59">simple numerical example</strong> to understand <strong data-start="74" data-end="87">Precision</strong> and <strong data-start="92" data-end="102">Recall</strong>.</p>
     <hr data-start="105" data-end="108" class="">
     <h3 data-start="110" data-end="133" class="">🧮 Example Scenario</h3>
@@ -468,23 +510,6 @@
     <hr data-start="1947" data-end="1950" class="">
     <p data-start="1952" data-end="2031" class="">Let me know if you'd like to plot an ROC curve from a sample dataset in Python!</p></div>
 
+    <hr>
 
-
-
-<h2>What is gradient descent?</h2>
-
-<h2>Explain the use cases where you working on Time Series.</h2>
-<h2>Explain ARIMA.</h2>
-
-<h2>Any specific tools or packages you used for Time Series analysis?</h2>
-PyCarret
-
-<h2>Find Precision and Recall for the below span email classifier problem.</h2>
-
-<pre>spam email classifier.
-100 emails
-40 spam mails
-model predicted 50 spam mails
-30 (correctly predicted spam)
-20 (predicted spam, but not spam)
-10 (actual spam, but predicted not spam)</pre>
+<span style="display: none;">Tags: Technology,Machine Learning,Interview Preparation,</span>
